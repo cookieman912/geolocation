@@ -12,6 +12,16 @@
     <header>
         <h1>Travel Tip</h1>
     </header>
+    <div class="modal" hidden>
+        <h2>Do you want to save this location?</h2>
+        <div class="form-container">
+            <form onsubmit="onBuildLocation(event, this)">
+                <input type="text" placeholder="Enter location name">
+                <button>save</button>
+            </form>
+            <button onclick="onCloseModal()">X</button>
+        </div>
+    </div>
     <aside class="btn-container">
         <button onclick="onAddMarker()" class="btn-add-marker">Add Marker Speific Location</button>
         <button onclick="onGetUserPos()" class="btn-user-pos">Get User Position</button>

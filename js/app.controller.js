@@ -6,6 +6,8 @@ window.onAddMarker = onAddMarker;
 window.onPanTo = onPanTo;
 window.onGetLocs = onGetLocs;
 window.onGetUserPos = onGetUserPos;
+window.onBuildLocation = onBuildLocation;
+window.onCloseModal = onCloseModal;
 
 var gLatLang;
 
@@ -17,12 +19,21 @@ function onInit() {
                     lat: mapsMouseEvent.latLng.lat(),
                     lang: mapsMouseEvent.latLng.lng()
                 };
-                onPanTo(gLatLang.lat, gLatLang.lang);
-                console.log(mapsMouseEvent.latLng.lat());
-                console.log(mapsMouseEvent.latLng.lng());
+                document.querySelector('.modal').hidden = false;
             })
         })
         .catch((err) => console.log(err));
+}
+
+function onCloseModal() {
+    document.querySelector('.modal').hidden = true;
+}
+
+function onBuildLocation(ev, elForm) {
+    ev.preventDefault();
+    document.querySelector('.modal').hidden = true;
+    const locName = elForm.querySelector('input').value;
+    locService.buildLocation(locName, gLatLang.lat, gLatLang.lang);
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition

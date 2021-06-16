@@ -13,7 +13,7 @@ let locations = []
 function getLocs() {
     return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${locations[0].lat},${locations[0].lng}&key=${LOC_API_KEY}`)
 
-    .then(res => res.data.results)
+        .then(res => res.data.results)
         .then(locations => { return locations; })
 
 
@@ -24,7 +24,15 @@ function getLocs() {
     // });
 }
 
-function buildLocation(name, lat, lng, ) {
-    locations.push({ id: utils.makeId(), name, lat, lng, weather, createdAt: Date.now(), updatedAt: Date.now() })
+function buildLocation(name, lat, lng) {
+    locations.push({
+        id: utils.makeId(),
+        name,
+        lat,
+        lng,
+        weather: 'partly clouded 22°',
+        createdAt: Date.now(),
+        updatedAt: Date.now()
+    })
     storageService.saveToStorage(LOCATIONS_DB_KEY, locations)
 }
