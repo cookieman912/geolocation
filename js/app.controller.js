@@ -9,7 +9,11 @@ window.onGetUserPos = onGetUserPos;
 window.onGo = onGo;
 window.onDelete = onDelete;
 window.onSearchPlace = onSearchLocation;
+window.onBuildLocation = onBuildLocation;
+window.onCloseModal = onCloseModal;
+
 var gLatLang;
+
 
 
 function onInit() {
@@ -84,5 +88,5 @@ function onDelete(el) {
 
 function onSearchLocation() {
     console.log('searching', document.getElementById('search-location').value);
-    mapService.SearchPlace()
+    mapservice.SearchPlace()
 }
