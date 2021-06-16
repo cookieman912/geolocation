@@ -21,11 +21,9 @@ function initLocations() {
 
 function getLocs() {
     return locations;
-
     // return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${locations[0].lat},${locations[0].lng}&key=${LOC_API_KEY}`)
     // .then(res => res.data.results)
     //     .then(locations => { return locations; })
-
 }
 
 function buildLocation(name, lat, lng) {
@@ -50,7 +48,5 @@ function deleteLocation(id) {
 function moveToTypedCoords(input) {
     return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${input}&key=${LOC_API_KEY}`)
         .then(res => { mapService.panTo(res.data.results[0].geometry.location.lat, res.data.results[0].geometry.location.lng) });
-
-
 
 }

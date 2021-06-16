@@ -12,6 +12,7 @@ window.onCloseModal = onCloseModal;
 window.onGo = onGo;
 window.onDelete = onDelete;
 window.onSearchPlace = onSearchPlace;
+window.onGetLink = onGetLink;
 
 var gLatLang;
 
@@ -29,6 +30,7 @@ function onInit() {
         .catch((err) => console.log(err));
     locService.initLocations()
     renderLocations()
+    console.log(getParameterByName('lat'))
 }
 
 function onCloseModal() {
@@ -94,7 +96,6 @@ function onGo(id) {
 function onSearchPlace() {
     // utils.debounce(function() {  }, 1000)
     mapService.SearchPlace()
-
 }
 
 function onDelete(id) {
@@ -105,3 +106,22 @@ function onDelete(id) {
 function onPanTo(lat, lang) {
     mapService.panTo(lat, lang);
 }
+
+function onGetLink() {
+    var inputc = document.body.appendChild(document.createElement("input"));
+    inputc.value = window.location.href + `lat${locService.getLocs()[0].lat}&lng${locService.getLocs()[0].lng}`
+    console.log(inputc);
+    inputc.focus();
+    inputc.select();
+    document.execCommand('copy');
+    inputc.parentNode.removeChild(inputc)
+}
+
+// function getParameterByName(name, url = window.location.href) {
+//     name = name.replace(/[\[\]]/g, '\\$&');
+//     var regex = new RegExp('^((\-?|\+?)?\d+(\.\d+)?),\s*((\-?|\+?)?\d+(\.\d+)?)$)
+//         results = regex.exec(url);
+//     if (!results) return null;
+//     if (!results[2]) return '';
+//     return decodeURIComponent(results[2].replace(/\+/g, ' '));
+// }
