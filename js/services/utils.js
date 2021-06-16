@@ -22,14 +22,12 @@ function makeId(length = 6) {
     return txt;
 }
 
-function debounce(func, wait) {
+function debounce(func, wait = 1000) {
     let timeout;
-    console.log(func);
 
-    return function(...args) {
+    return function executedFunction(...args) {
         const later = () => {
             clearTimeout(timeout);
-
             func(...args);
         };
 

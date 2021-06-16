@@ -30,7 +30,9 @@ function onInit() {
         .catch((err) => console.log(err));
     locService.initLocations()
     renderLocations()
-    console.log(getParameterByName('lat'))
+
+    const elInput = document.querySelector('input[id=search-location]')
+    elInput.addEventListener('input', utils.debounce(onSearchPlace, 1500))
 }
 
 function onCloseModal() {
@@ -45,9 +47,7 @@ function onBuildLocation(ev, elForm) {
     renderLocations();
 }
 
-// This function provides a Promise API to the callback-based-api of getCurrentPosition
 function getPosition() {
-    console.log('Getting Pos');
     return new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(resolve, reject)
     })
