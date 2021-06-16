@@ -3,10 +3,11 @@ const LOCATIONS_DB_KEY = 'locationsDB'
 import { storageService } from './storage-service.js'
 import { utils } from './utils.js'
 export const locService = {
-    getLocs
+    getLocs,
+    buildLocation
 }
 
-let locations = storageService.loadFromStorage(LOCATIONS_DB_KEY)
+let locations = []
 
 
 function getLocs() {
@@ -23,7 +24,7 @@ function getLocs() {
     // });
 }
 
-function _buildLocation(name, lat, lng, ) {
+function buildLocation(name, lat, lng, ) {
     locations.push({ id: utils.makeId(), name, lat, lng, weather, createdAt: Date.now(), updatedAt: Date.now() })
     storageService.saveToStorage(LOCATIONS_DB_KEY, locations)
 }
