@@ -56,7 +56,7 @@ function getPosition() {
 }
 
 function onAddMarker() {
-    mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 });
+    mapService.addMarker({ lat: gLatLang.lat , lng: gLatLang.lang });
 }
 
 function onGetLocs() {
@@ -67,12 +67,12 @@ function onGetLocs() {
 
 function renderLocations() {
     let locs = locService.getLocs()
-    let strHtml = `<tbody>`
+    let strHtml = `<ul class="locs">`
 
     locs.forEach(loc => {
-        strHtml += `<tr> <td>${loc.name}</td> <td> </td><button } onclick="onGo('${loc.id}')">go</button> <td> </td><button onclick="onDelete('${loc.id}')">delete</button></tr>`
+        strHtml += `<li>${loc.name}<button onclick="onGo('${loc.id}')">go</button><button onclick="onDelete('${loc.id}')">delete</button></li>`
     })
-    strHtml += '</tbdoy>'
+    strHtml += '</ul>'
     document.querySelector('.locs').innerHTML = strHtml
 }
 
@@ -97,7 +97,6 @@ function onGo(id) {
 }
 
 function onSearchPlace() {
-    // utils.debounce(function() {  }, 1000)
     mapService.SearchPlace()
 }
 

@@ -2,15 +2,22 @@
     box-sizing: border-box;
 }
 
+@font-face {
+    font-family: sanspro;
+    src: url(../fonts/SourceSansPro-Regular.ttf);
+}
+
 body {
-    background-color: #edf6f9;
+    background-color: #cfe8f0;
     margin: 0;
     text-align: center;
+    font-family: sanspro, sans-serif;
 }
 
 button {
     border: 1px solid rgb(31, 28, 28);
     cursor: pointer;
+    font-weight: bold;
 }
 
 button:hover {
@@ -20,7 +27,7 @@ button:hover {
 header {
     display: flex;
     justify-content: flex-start;
-    background-color: #ffddd2;
+    background-color: #ffddd2bb;
     color: #006d77;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     padding-left: 2rem;
@@ -30,6 +37,9 @@ header {
 .btn-container {
     display: flex;
     justify-content: flex-start;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .btn-container>* {
@@ -37,8 +47,13 @@ header {
     border-radius: 10px;
     margin-left: 0.5rem;
     padding: .3rem;
-    background-color: #dbecf1;
+    background-color: transparent;
     margin-bottom: 1rem;
+}
+
+.search {
+    background-color: unset;
+    font-weight: bold;
 }
 
 .map {
@@ -68,3 +83,30 @@ header {
     border-radius: 10px;
     border-color: #006d77;
 }
+
+.locs {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.locs li {
+    border: 1px solid black;
+    font-weight: bold;
+    max-width: 300px;
+    border-radius: 15px;
+    padding: 0.3rem 1rem;
+    background-color: #b9857231;
+    color: #292828;
+}
+
+.locs li >* {
+    margin: 5px;
+    background-color: transparent;
+    border-radius: 5px;
+    color: #006d77;
+}
+

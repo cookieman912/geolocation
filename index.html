@@ -24,14 +24,14 @@
     </div>
     <aside class="btn-container">
         <button onclick="onAddMarker()" class="btn-add-marker">Add Marker Speific Location</button>
-        <button onclick="onGetUserPos()" class="btn-user-pos">Get User Position</button>
+        <button onclick="onGetUserPos()" class="btn-user-pos">My Position</button>
         <button onclick="onGetLocs()" class="btn-get-locs">Get Locations</button>
-        <button onclick="onGetLink()" class="btn-get-locs">Get link!</button>
-        type in your desired place<input type="text" id="search-location">
+        <button onclick="onGetLink()" class="btn-get-locs">Share a location</button>
+       <div class="search">Where to? <input type="text" id="search-location" placeholder="type any place"></div>
     </aside>
     <div class="map" id="map" style="width: 100%; height: 400px;"></div>
 
-    <p>You are at: <span class="user-pos"></span></p>
+   <h3>Your saved places</h3>
     <div class="locs">
 
     </div>
