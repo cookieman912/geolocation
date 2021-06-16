@@ -134,8 +134,9 @@ function setLinkLocation() {
     console.log(coords);
     coords.lat = Number(coords.lat)
     coords.lng = Number(coords.lng)
-    if (coords) {
-        setTimeout(function() { mapService.panTo(coords.lat, coords.lng) }, 10)
+    if (coords.lat != 0 || coords.lng != 0)
+        if (coords) {
+            setTimeout(function() { mapService.panTo(coords.lat, coords.lng) }, 10)
 
-    }
+        }
 }
