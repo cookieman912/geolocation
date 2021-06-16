@@ -7,12 +7,22 @@ window.onPanTo = onPanTo;
 window.onGetLocs = onGetLocs;
 window.onGetUserPos = onGetUserPos;
 
+var gLatLang;
+
 function onInit() {
     mapService.initMap()
-        .then(() => {
-            console.log('Map is ready');
+        .then(map => {
+            map.addListener("click", (mapsMouseEvent) => {
+                gLatLang = {
+                    lat: mapsMouseEvent.latLng.lat(),
+                    lang: mapsMouseEvent.latLng.lng()
+                };
+                onPanTo(gLatLang.lat,gLatLang.lang );
+                console.log(mapsMouseEvent.latLng.lat());
+                console.log(mapsMouseEvent.latLng.lng());
+            })
         })
-        .catch(() => console.log('Error: cannot init map'));
+        .catch((err) => console.log(err));
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
@@ -47,7 +57,6 @@ function onGetUserPos() {
             console.log('err!!!', err);
         })
 }
-function onPanTo() {
-    console.log('Panning the Map');
-    mapService.panTo(35.6895, 139.6917);
+function onPanTo(lat, lang) {
+    mapService.panTo(lat, lang);
 }

@@ -1,0 +1,30 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #edf6f9;
+    margin: 0;
+    text-align: center;
+}
+
+header {
+    display: flex;
+    justify-content: flex-start;
+    background-color: #ffddd2;
+    color: #006d77;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    padding-left: 2rem;
+    margin-bottom: 1rem;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.btn-container >* {
+    background: transparent;
+    border-radius: 10px;
+    margin-left: 0.5rem;
+}
