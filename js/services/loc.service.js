@@ -2,28 +2,30 @@ const LOC_API_KEY = 'AIzaSyA3iKCO8Ce293puSh0B4twj3mpPUhG85-Q'
 const LOCATIONS_DB_KEY = 'locationsDB'
 import { storageService } from './storage-service.js'
 import { utils } from './utils.js'
+import { mapService } from './map.service.js'
 export const locService = {
     getLocs,
     buildLocation,
     deleteLocation,
-    getCoords,
+    moveToTypedCoords: moveToTypedCoords,
+    initLocations,
 }
 
-let locations = []
+var locations;
 
+function initLocations() {
+    locations = storageService.loadFromStorage(LOCATIONS_DB_KEY);
+    if (!locations)
+        locations = []
+}
 
 function getLocs() {
-    return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${locations[0].lat},${locations[0].lng}&key=${LOC_API_KEY}`)
+    return locations;
 
-        .then(res => res.data.results)
-        .then(locations => { return locations; })
+    // return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${locations[0].lat},${locations[0].lng}&key=${LOC_API_KEY}`)
+    // .then(res => res.data.results)
+    //     .then(locations => { return locations; })
 
-
-    // return new Promise((resolve, reject) => {
-    //     setTimeout(() => {
-    //         resolve(locs);
-    //     }, 2000)
-    // });
 }
 
 function buildLocation(name, lat, lng) {
@@ -45,8 +47,10 @@ function deleteLocation(id) {
     storageService.saveToStorage(LOCATIONS_DB_KEY, locations)
 }
 
-function getCoords(input) {
+function moveToTypedCoords(input) {
     return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${input}&key=${LOC_API_KEY}`)
-        .then(res => res.data.results)
-        .then(coords => { return coords })
+        .then(res => { mapService.panTo(res.data.results[0].geometry.location.lat, res.data.results[0].geometry.location.lng) });
+
+
+
 }

@@ -5,7 +5,7 @@ export const mapService = {
     panTo,
     panToUserLocation,
     showLocation,
-    SearchPlace
+    SearchPlace,
 }
 
 var gMap;
@@ -66,6 +66,6 @@ function showLocation(position) {
 }
 
 function SearchPlace() {
-    let coords = locService.getCoords(document.getElementById('search-location').value)
-    console.log(coords);
+    locService.moveToTypedCoords(document.getElementById('search-location').value)
+
 }

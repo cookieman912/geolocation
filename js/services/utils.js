@@ -1,6 +1,9 @@
 'use strict'
 
-export const utils = { makeId }
+export const utils = {
+    makeId,
+    debounce
+}
 
 function getRandomIntInclusive(min, max) {
     min = Math.ceil(min);
@@ -18,3 +21,19 @@ function makeId(length = 6) {
 
     return txt;
 }
+
+function debounce(func, wait) {
+    let timeout;
+    console.log(func);
+
+    return function(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+
+            func(...args);
+        };
+
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+};
