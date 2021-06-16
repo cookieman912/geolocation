@@ -30,7 +30,8 @@ function onInit() {
         .catch((err) => console.log(err));
     locService.initLocations()
     renderLocations()
-    console.log(getParameterByName('lat'))
+    setLinkLocation()
+
 }
 
 function onCloseModal() {
@@ -80,6 +81,7 @@ function onGetUserPos() {
             console.log('User position is:', pos.coords);
             document.querySelector('.user-pos').innerText =
                 `Latitude: ${pos.coords.latitude} - Longitude: ${pos.coords.longitude}`
+            mapService.panTo(pos.coords.latitude, pos.coords.longitude);
         })
         .catch(err => {
             console.log('err!!!', err);
@@ -109,7 +111,7 @@ function onPanTo(lat, lang) {
 
 function onGetLink() {
     var inputc = document.body.appendChild(document.createElement("input"));
-    inputc.value = window.location.href + `lat${locService.getLocs()[0].lat}&lng${locService.getLocs()[0].lng}`
+    inputc.value = ` ${window.location.href}?lat=${locService.getLocs()[0].lat}&lng=${locService.getLocs()[0].lng}`
     console.log(inputc);
     inputc.focus();
     inputc.select();
@@ -117,11 +119,23 @@ function onGetLink() {
     inputc.parentNode.removeChild(inputc)
 }
 
-// function getParameterByName(name, url = window.location.href) {
-//     name = name.replace(/[\[\]]/g, '\\$&');
-//     var regex = new RegExp('^((\-?|\+?)?\d+(\.\d+)?),\s*((\-?|\+?)?\d+(\.\d+)?)$)
-//         results = regex.exec(url);
-//     if (!results) return null;
-//     if (!results[2]) return '';
-//     return decodeURIComponent(results[2].replace(/\+/g, ' '));
-// }
+function getParameterByName(name, url = window.location.href) {
+    console.log(url);
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+function setLinkLocation() {
+    let coords = { lat: getParameterByName('lat'), lng: getParameterByName('lng') }
+    console.log(coords);
+    coords.lat = Number(coords.lat)
+    coords.lng = Number(coords.lng)
+    if (coords) {
+        setTimeout(function() { mapService.panTo(coords.lat, coords.lng) }, 10)
+
+    }
+}
