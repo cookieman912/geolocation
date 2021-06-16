@@ -6,8 +6,11 @@ window.onAddMarker = onAddMarker;
 window.onPanTo = onPanTo;
 window.onGetLocs = onGetLocs;
 window.onGetUserPos = onGetUserPos;
-
+window.onGo = onGo;
+window.onDelete = onDelete;
+window.onSearchPlace = onSearchLocation;
 var gLatLang;
+
 
 function onInit() {
     mapService.initMap()
@@ -30,6 +33,7 @@ function getPosition() {
     console.log('Getting Pos');
     return new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(resolve, reject)
+
     })
 }
 
@@ -50,6 +54,7 @@ function onGetLocs() {
 function onGetUserPos() {
     getPosition()
         .then(pos => {
+            mapService.showLocation(pos);
             console.log('User position is:', pos.coords);
             document.querySelector('.user-pos').innerText =
                 `Latitude: ${pos.coords.latitude} - Longitude: ${pos.coords.longitude}`
@@ -61,4 +66,23 @@ function onGetUserPos() {
 
 function onPanTo(lat, lang) {
     mapService.panTo(lat, lang);
+}
+
+function onMyLocation() {
+    mapService.panToUserLocation();
+}
+
+function onGo() {
+    onPanTo(gLatLang.lat, gLatLang.lang);
+}
+
+
+function onDelete(el) {
+    console.log(el);
+    locService.deleteLocation(el.id)
+}
+
+function onSearchLocation() {
+    console.log('searching', document.getElementById('search-location').value);
+    mapService.SearchPlace()
 }

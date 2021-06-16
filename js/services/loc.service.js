@@ -4,7 +4,9 @@ import { storageService } from './storage-service.js'
 import { utils } from './utils.js'
 export const locService = {
     getLocs,
-    buildLocation
+    buildLocation,
+    deleteLocation,
+    getCoords,
 }
 
 let locations = []
@@ -27,4 +29,16 @@ function getLocs() {
 function buildLocation(name, lat, lng, ) {
     locations.push({ id: utils.makeId(), name, lat, lng, weather, createdAt: Date.now(), updatedAt: Date.now() })
     storageService.saveToStorage(LOCATIONS_DB_KEY, locations)
+}
+
+function deleteLocation(id) {
+    var deletedIdx = locations.findIndex(location => id === location.id)
+    locations.splice(deletedIdx, 1)
+    storageService.saveToStorage(LOCATIONS_DB_KEY, locations)
+}
+
+function getCoords(input) {
+    return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${input}&key=${LOC_API_KEY}`)
+        .then(res => res.data.results)
+        .then(coords => { return coords })
 }

@@ -1,7 +1,11 @@
+import { locService } from './loc.service.js'
 export const mapService = {
     initMap,
     addMarker,
-    panTo
+    panTo,
+    panToUserLocation,
+    showLocation,
+    SearchPlace
 }
 
 var gMap;
@@ -13,10 +17,10 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
                 document.querySelector('#map'), {
                     center: { lat, lng },
                     zoom: 15
-                })       
+                })
             return gMap
         })
-        
+
 }
 
 function addMarker(loc) {
@@ -47,4 +51,21 @@ function _connectGoogleApi() {
         elGoogleApi.onload = resolve;
         elGoogleApi.onerror = () => reject('Google script failed to load')
     })
+}
+
+function panToUserLocation() {
+    console.log('panning to location');
+    if (!navigator.geolocation) {
+        alert('HTML5 Geolocation is not supported in your browser.');
+        return;
+    }
+}
+
+function showLocation(position) {
+    initMap(position.coords.latitude, position.coords.longitude);
+}
+
+function SearchPlace() {
+    let coords = locService.getCoords(document.getElementById('search-location').value)
+    console.log(coords);
 }
