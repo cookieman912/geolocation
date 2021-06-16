@@ -31,8 +31,9 @@ function onAddMarker() {
 function onGetLocs() {
     locService.getLocs()
         .then(locs => {
-            console.log('Locations:', locs)
-            document.querySelector('.locs').innerText = JSON.stringify(locs)
+            document.querySelector('.locs').innerText = JSON.stringify(locs[0].formatted_address)
+
+
         })
 }
 
@@ -47,6 +48,7 @@ function onGetUserPos() {
             console.log('err!!!', err);
         })
 }
+
 function onPanTo() {
     console.log('Panning the Map');
     mapService.panTo(35.6895, 139.6917);
